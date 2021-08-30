@@ -26,3 +26,48 @@ No warranty or guarantee is offered or implied. Some calendar events may not sho
     2. The PalmOS devices local time zone can be specified in the config file
     3. Calendar entries from before the January 1st of the specified year will be ignored
 7. Run `senddatebook.py` with the port the PalmOS device is connected to specified via `-p` and the configuration file specified via `-c`, e.g. `./senddatebook.py -p net:any -c datebook.cfg`
+
+## Expected behaivour
+Output should be something like this:
+```
+$ ./senddatebook.py -p net:any -c datebook.cfg
+Waiting for connection on net:any...
+Fetching https://www.google.com/calendar/ical/en_gb.uk%23holiday%40group.v.calendar.google.com/public/basic.ics...
+Parsing...
+Done parseing
+                                                  
+Statistics:
+Input file </tmp/tmpdnA6us>, format <csv>:
+Input file format <untimed,beginDate,beginTime,endDate,endTime,description,note,alarm,advance,advanceUnit,repeatType,repeatForever,repeatEnd,repeatFrequency,repeatDay,repeatWeekdays,repeatWeekstart>
+Input file header <untimed,beginDate,beginTime,endDate,endTime,description,note,alarm,advance,advanceUnit,repeatType,repeatForever,repeatEnd,repeatFrequency,repeatDay,repeatWeekdays,repeatWeekstart>
+Lines read: 76
+Records read: 75
+Csv field <untimed> was read 75 times
+Csv field <beginDate> was read 75 times
+Csv field <beginTime> was read 75 times
+Csv field <endDate> was read 75 times
+Csv field <endTime> was read 75 times
+Csv field <description> was read 75 times
+Csv field <note> was read 75 times
+Csv field <alarm> was read 75 times
+Csv field <advance> was read 75 times
+Csv field <advanceUnit> was read 75 times
+Csv field <repeatType> was read 75 times
+Csv field <repeatForever> was read 75 times
+Csv field <repeatEnd> was read 75 times
+Csv field <repeatFrequency> was read 75 times
+Csv field <repeatDay> was read 75 times
+Csv field <repeatWeekdays> was read 75 times
+Csv field <repeatWeekstart> was read 75 times
+
+Output file </tmp/tmpdnA6us.pdb>, format <pdb>:
+Records written: 75
+
+Sending DatebookDB...
+Done
+Waiting for connection on net:any...
+```
+
+The script should just loop for ever, but quit gracefully on Ctrl-C. The default configuration will load in UK national holidays.
+
+![Summer Bank Holiday (regional holiday)](screenshot.jpg)
