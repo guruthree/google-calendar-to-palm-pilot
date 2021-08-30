@@ -13,7 +13,7 @@ No warranty or guarantee is offered or implied. Some calendar events may not sho
     1. After installing Anaconda either run `conda init` or source the profile, e.g. `source ~/anaconda3/etc/profile.d/conda.sh`
     2. Setup a Python 2.7 environment `conda create -n py27 python=2.7`
     3. Install the iCalendar python library `conda install icalendar`
-    4. Activate and do everything else inside the Python 2.7 environemnt `conda activate py27`
+    4. Activate and do everything else inside the Python 2.7 environment `conda activate py27`
 3. Setup the pilot-link Python 2.7 bindings (I couldn't get these working in Python 3 or I would have used it)
     1. Change to the pilot-link Python bindings folder, e.g. `cd pilot-link-0.2.12.5/bindings/Python`
     2. Build the bindings `python2 setup.py build`
@@ -27,7 +27,7 @@ No warranty or guarantee is offered or implied. Some calendar events may not sho
     3. Calendar entries from before the January 1st of the specified year will be ignored
 7. Run `senddatebook.py` with the port the PalmOS device is connected to specified via `-p` and the configuration file specified via `-c`, e.g. `./senddatebook.py -p net:any -c datebook.cfg`
 
-## Expected behaivour
+## Expected behaviour
 Output should be something like this:
 ```
 $ ./senddatebook.py -p net:any -c datebook.cfg
@@ -77,10 +77,10 @@ Wouldn't it be great if the calendar could be automatically loaded in? It's not 
 
 AutoSync will run a HotSync up to every 15 minutes, either all day or over specified hours, but only while in the cradle. In my testing, the cradle did not have to be connected, to the computer for data.
 
-Syncer will initiate an automatic HotSync once a day. The authour reports mixed feedback on if the device needed to be in the cradle. For me at least, with my Tungsten T3 it worked when not in the cradle, initiating a modem HotSync completely wirelessly over ppp over Bluetooth.
+Syncer will initiate an automatic HotSync once a day. The author reports mixed feedback on if the device needed to be in the cradle. For me at least, with my Tungsten T3 it worked when not in the cradle, initiating a modem HotSync completely wirelessly over ppp over Bluetooth.
 
 ### Networking (in brief)
 
 Networking over the Palm is easiest in my experience with ppp. Install pppd and then run `sudo pppd /dev/ttyUSB0 19200 10.0.0.1:10.0.0.2 proxyarp passive silent noauth local persist nodetach` as root. Setup a static IP on the Palm as 10.0.0.2 with a gateway of 10.0.0.1. To give it internet access run `sudo iptables -t nat -I POSTROUTING -s 10.0.0.0/8 -o eth0 -j MASQUERADE` and then add a DNS server of 1.1.1.1 (Cloudflare) or 8.8.8.8 (Google). (Setup a new connection for this in Prefs -> Network, then edit the Details.)
 
-For more exciting Bluetooth wireless (but still serial) networking, get bluez installed (with legacy tools) on your system. Use bluetoothctl to pair the PalmOS device to your PC and set as trusted on both devices. Make The bluez system service will need the `--compat` flag [added to the launch arguments](https://installfights.blogspot.com/2018/01/how-to-enable-bluetooth-connection-in.html). After restarting the service, sdptool can be used to specify that the computer is open for Bluetooth serial connections `sudo sdptool add --channel=22 SP`. At this point [rfcomm can be run to listen for an incoming serial connection](https://unix.stackexchange.com/questions/92255/how-do-i-connect-and-send-data-to-a-bluetooth-serial-port-on-linux) and when it recieves one to launch ppp to accept a network connection. `sudo rfcomm listen /dev/rfcomm0 22 pppd /dev/rfcomm0 115200 10.0.0.1:10.0.0.2 proxyarp passive silent noauth local persist nodetach`.
+For more exciting Bluetooth wireless (but still serial) networking, get bluez installed (with legacy tools) on your system. Use bluetoothctl to pair the PalmOS device to your PC and set as trusted on both devices. Make The bluez system service will need the `--compat` flag [added to the launch arguments](https://installfights.blogspot.com/2018/01/how-to-enable-bluetooth-connection-in.html). After restarting the service, sdptool can be used to specify that the computer is open for Bluetooth serial connections `sudo sdptool add --channel=22 SP`. At this point [rfcomm can be run to listen for an incoming serial connection](https://unix.stackexchange.com/questions/92255/how-do-i-connect-and-send-data-to-a-bluetooth-serial-port-on-linux) and when it receives one to launch ppp to accept a network connection. `sudo rfcomm listen /dev/rfcomm0 22 pppd /dev/rfcomm0 115200 10.0.0.1:10.0.0.2 proxyarp passive silent noauth local persist nodetach`.
