@@ -71,3 +71,16 @@ Waiting for connection on net:any...
 The script should just loop for ever, but quit gracefully on Ctrl-C. The default configuration will load in UK national holidays.
 
 ![Summer Bank Holiday (regional holiday)](screenshot.jpg)
+
+## Quality of life
+Wouldn't it be great if the calendar could be automatically loaded in? It's not impossible. I've found two tools that will automate HotSyncs, [AutoSync](https://archive.org/details/tucows_33516_AutoSync) and [Syncer](https://freeware.palmclub.nl/9f/132-syncer.html).
+
+AutoSync will run a HotSync up to every 15 minutes, either all day or over specified hours, but only while in the cradle. In my testing, the cradle did not have to be connected, to the computer for data.
+
+Syncer will initiate an automatic HotSync once a day. The authour reports mixed feedback on if the device needed to be in the cradle. For me at least, with my Tungsten T3 it worked when not in the cradle, initiating a modem HotSync completely wirelessly over ppp over Bluetooth.
+
+### Networking (in brief)
+
+Networking over the Palm is easiest in my experience with ppp. Install pppd and then run `sudo pppd /dev/ttyUSB0 19200 10.0.0.1:10.0.0.2 proxyarp passive silent noauth local persist nodetach` as root. Setup a static IP on the Palm as 10.0.0.2 with a gateway of 10.0.0.1. To give it internet access run `sudo iptables -t nat -I POSTROUTING -s 10.0.0.0/8 -o eth0 -j MASQUERADE` and then add a DNS server of 1.1.1.1 (Cloudflare) or 8.8.8.8 (Google). (Setup a new connection for this in Prefs -> Network, then edit the Details.)
+
+For more exciting Bluetooth wireless (but still serial) networking, get bluez installed (with legacy tools) on your system. Use bluetoothctl to pair the PalmOS device to your PC and set as trusted on both devices. Make The bluez system service will need the `--compat` flag [added to the launch arguments](https://installfights.blogspot.com/2018/01/how-to-enable-bluetooth-connection-in.html). After restarting the service, sdptool can be used to specify that the computer is open for Bluetooth serial connections `sudo sdptool add --channel=22 SP`. At this point [rfcomm can be run to listen for an incoming serial connection](https://unix.stackexchange.com/questions/92255/how-do-i-connect-and-send-data-to-a-bluetooth-serial-port-on-linux) and when it recieves one to launch ppp to accept a network connection. `sudo rfcomm listen /dev/rfcomm0 22 pppd /dev/rfcomm0 115200 10.0.0.1:10.0.0.2 proxyarp passive silent noauth local persist nodetach`.
