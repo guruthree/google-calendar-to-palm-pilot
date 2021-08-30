@@ -1,2 +1,5 @@
 *.pyc
+_pisock.so
+pisock.py
+pisockextras.py
 pilot-datebook
