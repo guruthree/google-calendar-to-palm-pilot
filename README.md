@@ -70,7 +70,7 @@ Waiting for connection on net:any...
 
 The script should just loop for ever, but quit gracefully on Ctrl-C. The default configuration will load in UK national holidays.
 
-![Summer Bank Holiday (regional holiday)](screenshot.jpg)
+![A Palm Tungsten T3 showing the date book on August 30th, 2021 with the "Summer Bank Holiday (regional Holiday)", imported via HotSync from Google Calendar.](screenshot.jpg)
 
 ## Quality of life
 Wouldn't it be great if the calendar could be automatically loaded in? It's not impossible. I've found two tools that will automate HotSyncs, [AutoSync](https://archive.org/details/tucows_33516_AutoSync) and [Syncer](https://freeware.palmclub.nl/9f/132-syncer.html).
