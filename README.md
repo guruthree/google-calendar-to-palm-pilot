@@ -5,7 +5,7 @@ Make your Palm Pilot useful again by downloading your Google Calendar to it.
 
 Requires [pilot-link](https://github.com/jichu4n/pilot-link), [pilot-datebook](https://github.com/guruthree/pilot-datebook), and the python [iCalendar](https://github.com/collective/icalendar) library. Also, sorry, Python 2.7. Only tested under Linux.
 
-No warranty or guarantee is offered or implied. Some calendar events may not show up, repeat correctly, or may not have an alarm. Times may be off with respect to daylight savings times. Soooo much of this is untested.
+No warranty or guarantee is offered or implied. Some calendar events may not show up, repeat correctly, or may not have an alarm. Times may be off with respect to daylight savings times. Soooo much of this is untested. (Known issues are listed below.)
 
 ## Setup
 1. Install pilot-link and pilot-datebook
@@ -26,6 +26,11 @@ No warranty or guarantee is offered or implied. Some calendar events may not sho
     2. The PalmOS devices local time zone can be specified in the config file
     3. Calendar entries from before the January 1st of the specified year will be ignored
 7. Run `senddatebook.py` with the port the PalmOS device is connected to specified via `-p` and the configuration file specified via `-c`, e.g. `./senddatebook.py -p net:any -c datebook.cfg`
+
+## Known issues
+* Mutli-day all-day events only show on the first day
+* Repeat events with one event deleted in the middle, will still show that deleted event
+* Some repeating events show twice
 
 ## Expected behaviour
 Output should be something like this:
@@ -75,7 +80,7 @@ The script should just loop for ever, but quit gracefully on Ctrl-C. The default
 ## Quality of life
 Wouldn't it be great if the calendar could be automatically loaded in? It's not impossible. I've found two tools that will automate HotSyncs, [AutoSync](https://archive.org/details/tucows_33516_AutoSync) and [Syncer](https://freeware.palmclub.nl/9f/132-syncer.html).
 
-AutoSync will run a HotSync up to every 15 minutes, either all day or over specified hours, but only while in the cradle. In my testing, the cradle did not have to be connected, to the computer for data.
+AutoSync will run a HotSync up to every 15 minutes, either all day or over specified hours, but only while in the cradle. In my testing, the cradle did not have to be connected to the computer for data.
 
 Syncer will initiate an automatic HotSync once a day. The author reports mixed feedback on if the device needed to be in the cradle. For me at least, with my Tungsten T3 it worked when not in the cradle, initiating a modem HotSync completely wirelessly over ppp over Bluetooth.
 
