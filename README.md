@@ -31,6 +31,7 @@ No warranty or guarantee is offered or implied. Some calendar events may not sho
 * Mutli-day all-day events only show on the first day
 * Repeat events with one event deleted in the middle, will still show that deleted event
 * Some repeating events show twice
+* Default alarms aren't added (might be a Google .ics export issue?)
 
 ## Expected behaviour
 Output should be something like this:
