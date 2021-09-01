@@ -3,6 +3,7 @@
 import icalendar
 import requests
 from datetime import datetime
+from datetime import time
 from datetime import timedelta # https://docs.python.org/3/library/datetime.html#timedelta-objects
 import pytz
 
@@ -19,12 +20,17 @@ def csvHeaders():
     GENERAL_HEADERS = "untimed,beginDate,beginTime,endDate,endTime,description,note"
     return ','.join([GENERAL_HEADERS, ALARM_HEADERS, REPEAT_HEADERS]) + "\n"
 
-def fetchCalendar(CALURI, FROMYEAR, LOCALTZ, doheaders=True):
+def fetchCalendar(CALURI, FROMYEAR, LOCALTZ, doheaders=True, addalarm=(9,17,30)):
     # return csv formatted ics data for feeding into pilot-datebook
     # CALURI - location of calendar to fetch
     # FROMYEAR - don't export calendar events older than january 1 of this year
     # LOCALTZ - time zone to put dates/times into
     # doheaders - include csv file headers in the returned list
+    # addalarm - automatically add an alarm to events to replace the one google doesn't export
+    #            tupple of (startrange,endrange,before)
+    #            where startrange and endrange are the hours between which to add the alarm
+    #            before is the number of minutes before the event to set the alarm for
+    #            won't be added to all-day events
 
     # ics text representation to palm numeric representation
     repeatTypes = {'DAILY':1, 'WEEKLY':2, 'MONTHLY':4, 'YEARLY':5}
@@ -74,9 +80,9 @@ def fetchCalendar(CALURI, FROMYEAR, LOCALTZ, doheaders=True):
                 # all day event so no timezone info
                 untimed = 1
                 beginDate = dtstart
-                beginTime = "00:00:00"
+                beginTime = time(0)
                 endDate = dtend
-                endTime = "00:00:00"
+                endTime = time(0)
                 if dtstart > datetime(FROMYEAR, 1, 1).date():
                     recent = 1
                 else:
@@ -92,6 +98,12 @@ def fetchCalendar(CALURI, FROMYEAR, LOCALTZ, doheaders=True):
                     alarmTimeT = -analarm['TRIGGER'].dt
                     if alarmTimeT < alarmTime:
                         alarmTime = alarmTimeT;
+            if alarm == 0 and addalarm != None and addalarm[2] != 0:
+                if beginTime > time(addalarm[0]) and endTime < time(addalarm[1]):
+                    alarmTime = timedelta(seconds=addalarm[2]*60)
+                    alarm = 1
+                    print "add an alarm to %s (%s)" % (description, beginTime)
+                
             if alarm:
                 alarmMinutes = alarmTime.days*1440 + alarmTime.seconds/60
                 if alarmMinutes % 1440 == 0:

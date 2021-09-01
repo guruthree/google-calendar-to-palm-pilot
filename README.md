@@ -31,7 +31,7 @@ No warranty or guarantee is offered or implied. Some calendar events may not sho
 * Mutli-day all-day events only show on the first day
 * Repeat events with one event deleted in the middle, will still show that deleted event
 * Some repeating events show twice
-* Default alarms aren't added (might be a Google .ics export issue?)
+* Google doesn't Default export alarms, so a configuration option has been added to add these back in. It can't tell be between no alarm and a default alarm, so a time range has been added so that alarms aren't going off while your asleep.
 
 ## Expected behaviour
 Output should be something like this:

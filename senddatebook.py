@@ -35,17 +35,19 @@ if not options.pilotport or not options.configfile:
     exit(1)
 
 # https://docs.python.org/2.7/library/configparser.html
-config = ConfigParser(
-    {'URI': 'https://www.google.com/calendar/ical/en_gb.uk%23holiday%40group.v.calendar.google.com/public/basic.ics',
-     'TIMEZONE': 'UTC',
-     'FROMYEAR': '2020'}
-    )
+config = ConfigParser({
+    'URI': 'https://www.google.com/calendar/ical/en_gb.uk%23holiday%40group.v.calendar.google.com/public/basic.ics',
+    'TIMEZONE': 'UTC',
+    'FROMYEAR': '2020',
+    'ADDALARM': '30',
+    'ADDALARM_START': '9',
+    'ADDALARM_END': '7'
+    })
 config.readfp(open(options.configfile))
 URI = config.get('DEFAULT', 'URI').split(',')
 LOCALTZ = pytz.timezone(config.get('DEFAULT', 'TIMEZONE'))
 FROMYEAR = int(config.get('DEFAULT', 'FROMYEAR'))
-
-
+addalarm = (int(config.get('DEFAULT', 'ADDALARM_START')), int(config.get('DEFAULT', 'ADDALARM_END')), int(config.get('DEFAULT', 'ADDALARM')))
 
 while running:
     print "Waiting for connection on %s..." % options.pilotport
@@ -63,7 +65,7 @@ while running:
                 tmp = UTF8Writer(tmp)
                 tmp.write(csvHeaders())
                 for uri in URI:
-                    csv = fetchCalendar(uri, FROMYEAR, LOCALTZ, False)
+                    csv = fetchCalendar(uri, FROMYEAR, LOCALTZ, False, addalarm)
                     tmp.write(csv)
                 tmp.close()
                 #./pilot-datebook -r csv -f ~/Desktop/pypisock/cal.csv -w pdb -f ~/Desktop/cal.pdb
