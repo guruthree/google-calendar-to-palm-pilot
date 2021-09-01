@@ -102,7 +102,6 @@ def fetchCalendar(CALURI, FROMYEAR, LOCALTZ, doheaders=True, addalarm=(9,17,30))
                 if beginTime > time(addalarm[0]) and endTime < time(addalarm[1]):
                     alarmTime = timedelta(seconds=addalarm[2]*60)
                     alarm = 1
-                    print "add an alarm to %s (%s)" % (description, beginTime)
                 
             if alarm:
                 alarmMinutes = alarmTime.days*1440 + alarmTime.seconds/60
