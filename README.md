@@ -5,7 +5,21 @@ Make your Palm Pilot useful again by downloading your Google Calendar to it.
 
 Requires [pilot-link](https://github.com/jichu4n/pilot-link), [pilot-datebook](https://github.com/guruthree/pilot-datebook), and the python [iCalendar](https://github.com/collective/icalendar) library. Also, sorry, Python 2.7. Only tested under Linux.
 
-No warranty or guarantee is offered or implied. Some calendar events may not show up, repeat correctly, or may not have an alarm. Times may be off with respect to daylight savings times. Soooo much of this is untested. (Known issues are listed below.)
+No warranty or guarantee is offered or implied. Some calendar events may not show up, repeat correctly, etc. Times may be off with respect to daylight savings times. This is pretty much untested. (Known issues are listed below.)
+
+### Other related software
+
+There is software out there that does similar thing, but nothing one click, or Linux, for Google to Palm.
+
+Exporting from the DatebookDB.pdb:
+
+* [Palm2CSV](https://www.palm2csv.com/) to a CSV file
+* [palm2ical](https://hepunx.rl.ac.uk/~adye/software/palm/palm2ical/) to an ics calendar (for importing into Google Calendar)
+
+Importing to Palm Desktop (to then HotSync to a PalmOS device):
+
+* [ical2vcal](https://cpbotha.net/2007/04/26/google-calendar-to-palm-desktop-conversion/) to create a vcal file that can be imported into Palm Desktop
+* It seems like you can sync Google Calendar to an older version of Outlook, which will then sync to Palm Desktop and then a PalmOS device ([source](https://old.reddit.com/r/Palm/comments/iq77sq/sync_google_calendar_through_hotsync/g4t3q5w/))
 
 ## Setup
 1. Install pilot-link and pilot-datebook
