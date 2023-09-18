@@ -3,7 +3,7 @@ Make your Palm Pilot useful again by downloading your Google Calendar to it.
 
 ---
 
-** NOTE THIS PROJECT HAS BEEN SUPERSEDED! ** Please [https://github.com/guruthree/palm-calendar-sync2](palm-calendar-sync2) for a more feature complete project aimed at achieving the same goals.
+**NOTE THIS PROJECT HAS BEEN SUPERSEDED!** Please [https://github.com/guruthree/palm-calendar-sync2](palm-calendar-sync2) for a more feature complete project aimed at achieving the same goals.
 
 ---
 
