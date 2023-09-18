@@ -1,6 +1,12 @@
 # google-calendar-to-palm-pilot
 Make your Palm Pilot useful again by downloading your Google Calendar to it.
 
+---
+
+** NOTE THIS PROJECT HAS BEEN SUPERSEDED! ** Please [https://github.com/guruthree/palm-calendar-sync2](palm-calendar-sync2) for a more feature complete project aimed at achieving the same goals.
+
+---
+
 `senddatebook.py`, when running, should listen on the specified port and upon triggering a HotSync on the PalmOS device connected to that port, fetch a specified set of Google Calendar/ics files, convert these, and send them to the PalmOS device.
 
 Requires [pilot-link](https://github.com/jichu4n/pilot-link), [pilot-datebook](https://github.com/guruthree/pilot-datebook), and the python [iCalendar](https://github.com/collective/icalendar) library. Also, sorry, Python 2.7. Only tested under Linux.
